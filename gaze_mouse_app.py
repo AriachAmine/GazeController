@@ -161,6 +161,17 @@ def main():
             print(f"Mouse control: {'ENABLED' if is_enabled else 'DISABLED'}")
             # Add small delay to prevent multiple toggles
             cv2.waitKey(300)
+        
+        # Adjust sensitivity
+        if keyboard.is_pressed("+") or keyboard.is_pressed("="):  # Both + and = keys (= is easier to press)
+            controller.sensitivity = min(5.0, controller.sensitivity + 0.25)
+            print(f"Sensitivity increased to: {controller.sensitivity:.2f}")
+            cv2.waitKey(300)
+        
+        if keyboard.is_pressed("-"):
+            controller.sensitivity = max(0.5, controller.sensitivity - 0.25)
+            print(f"Sensitivity decreased to: {controller.sensitivity:.2f}")
+            cv2.waitKey(300)
 
         # Start calibration with 'c' key
         if keyboard.is_pressed("c") and not calibration_mode:
@@ -205,6 +216,7 @@ def main():
 
         # Quit with 'q' key
         if keyboard.is_pressed("q"):
+
             running = False
 
     # Clean up
